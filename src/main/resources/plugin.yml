@@ -1,0 +1,9 @@
+name: SetSpawn
+version: '1.0'
+main: org.patekcz.setSpawn.SetSpawn
+api-version: '1.21'
+commands:
+  setspawn:
+    description: Nastaví spawn na aktuální pozici hráče.
+  spawn:
+    description: Teleportuje hráče na spawn.

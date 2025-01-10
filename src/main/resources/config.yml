@@ -1,0 +1,12 @@
+messages:
+  spawnSet: "&aSpawn byl nastaven na vaši aktuální pozici!"
+  teleportToSpawn: "&aByli jste teleportováni na spawn!"
+  spawnNotSet: "&cSpawn pozice není nastavena."
+  commandOnlyPlayer: "&cTento příkaz může použít pouze hráč."
+sounds:
+  teleport: "minecraft:entity.experience_orb.pickup"
+  setSpawn: "minecraft:entity.experience_orb.pickup"
+  playerJoin: "minecraft:entity.player.levelup"  # Zvuk při připojení hráče
+soundSettings:
+  volume: 1.0
+  pitch: 1.0

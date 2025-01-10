@@ -1,0 +1,28 @@
+# Gradle specific files
+.gradle/
+build/
+
+# Ignore Gradle wrapper jar files (generated during build)
+gradle-wrapper.jar
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.idea/
+*.iml
+.vscode/
+
+# Ignore logs
+*.log
+
+# Ignore temporary files created by Gradle
+*.class
+*.jar
+
+# Ignore configuration files for Gradle (optional, usually don't need to be versioned)
+gradle.properties
+gradlew
+gradlew.bat
+settings.gradle
