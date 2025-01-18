@@ -1,12 +1,13 @@
 messages:
-  spawnSet: "&aSpawn byl nastaven na vaši aktuální pozici!"
-  teleportToSpawn: "&aByli jste teleportováni na spawn!"
-  spawnNotSet: "&cSpawn pozice není nastavena."
-  commandOnlyPlayer: "&cTento příkaz může použít pouze hráč."
+  messageLocation: actionbar # Possible values: chat or actionbar
+  spawnSet: "&aSpawn has been set to your current location!"
+  teleportToSpawn: "&aYou have been teleported to spawn!"
+  spawnNotSet: "&cSpawn position is not set."
+  commandOnlyPlayer: "&cThis command can only be used by a player."
 sounds:
   teleport: "minecraft:entity.experience_orb.pickup"
   setSpawn: "minecraft:entity.experience_orb.pickup"
-  playerJoin: "minecraft:entity.player.levelup"  # Zvuk při připojení hráče
+  playerJoin: "minecraft:entity.player.levelup"  # Sound when a player joins
 soundSettings:
   volume: 1.0
   pitch: 1.0

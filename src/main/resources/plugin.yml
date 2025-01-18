@@ -1,9 +1,10 @@
-name: SetSpawn
-version: '1.0'
+name: FancySetSpawn
+author: patek_cz
+version: '1.1'
 main: org.patekcz.setSpawn.SetSpawn
 api-version: '1.21'
 commands:
   setspawn:
-    description: Nastaví spawn na aktuální pozici hráče.
+    description: Sets the spawn to the player's current location.
   spawn:
-    description: Teleportuje hráče na spawn.
+    description: Teleports the player to the spawn.

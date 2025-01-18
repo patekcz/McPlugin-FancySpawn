@@ -13,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.ChatColor;
 
+import net.md_5.bungee.api.chat.TextComponent; // Import pro BungeeCord API (pro actionbar)
+
 import java.io.File;
 import java.io.IOException;
 
@@ -25,15 +27,13 @@ public final class SetSpawn extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         getLogger().info("Plugin SetSpawn se spouští...");
-        
-        // Načtení config.yml
         saveDefaultConfig();
         config = getConfig();
 
         spawnConfigFile = new File(getDataFolder(), "spawnconfig.yml");
         if (!spawnConfigFile.exists()) {
             try {
-                spawnConfigFile.createNewFile(); // Vytvoření nového souboru
+                spawnConfigFile.createNewFile();
             } catch (IOException e) {
                 getLogger().severe("Nastala chyba při vytváření souboru spawnconfig.yml.");
                 e.printStackTrace();
@@ -42,13 +42,29 @@ public final class SetSpawn extends JavaPlugin implements Listener {
         spawnConfig = YamlConfiguration.loadConfiguration(spawnConfigFile);
         getLogger().info("Plugin SetSpawn byl úspěšně načten.");
 
-        // Registrace posluchače událostí
         Bukkit.getPluginManager().registerEvents(this, this);
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    // Metoda pro zobrazení zpráv podle nastavení v konfiguraci
+    private void sendMessageToPlayer(Player player, String messageKey) {
+        String message = ChatColor.translateAlternateColorCodes('&', config.getString(messageKey, ""));
+        String location = config.getString("messages.messageLocation", "chat").toLowerCase();
+
+        switch (location) {
+            case "actionbar":
+                // Použijeme ActionBar zprávy
+                player.spigot().sendMessage(net.md_5.bungee.api.ChatMessageType.ACTION_BAR, new TextComponent(message));
+                break;
+            case "chat":
+            default:
+                player.sendMessage(message);
+                break;
+        }
     }
 
     @EventHandler
@@ -61,20 +77,17 @@ public final class SetSpawn extends JavaPlugin implements Listener {
         float yaw = (float) spawnConfig.getDouble("spawn.yaw");
         float pitch = (float) spawnConfig.getDouble("spawn.pitch");
 
-        // Teleportace hráče na spawn pozici
         if (worldName != null) {
             Location spawnLocation = new Location(Bukkit.getWorld(worldName), x, y, z, yaw, pitch);
             player.teleport(spawnLocation);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.teleportToSpawn")));
-            
-            // Přehrání zvuku při teleportaci
+            sendMessageToPlayer(player, "messages.teleportToSpawn");
+
             String teleportSound = config.getString("sounds.teleport");
             float volume = (float) config.getDouble("soundSettings.volume");
             float pitchSetting = (float) config.getDouble("soundSettings.pitch");
             player.playSound(player.getLocation(), teleportSound, volume, pitchSetting);
         }
 
-        // Přehrání zvuku při připojení hráče
         String playerJoinSound = config.getString("sounds.playerJoin");
         player.playSound(player.getLocation(), playerJoinSound, 1.0f, 1.0f);
     }
@@ -92,7 +105,6 @@ public final class SetSpawn extends JavaPlugin implements Listener {
                 float yaw = location.getYaw();
                 float pitch = location.getPitch();
 
-                // Uložení do souboru spawnconfig.yml
                 spawnConfig.set("spawn.world", worldName);
                 spawnConfig.set("spawn.x", x);
                 spawnConfig.set("spawn.y", y);
@@ -102,12 +114,12 @@ public final class SetSpawn extends JavaPlugin implements Listener {
                 try {
                     spawnConfig.save(spawnConfigFile);
                 } catch (Exception e) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.spawnNotSet")));
+                    sendMessageToPlayer(player, "messages.spawnNotSet");
                     e.printStackTrace();
                 }
 
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.spawnSet")));
-                // Přehrání zvuku při nastavení spawn pozice
+                sendMessageToPlayer(player, "messages.spawnSet");
+
                 String setSpawnSound = config.getString("sounds.setSpawn");
                 float volume = (float) config.getDouble("soundSettings.volume");
                 float pitchSetting = (float) config.getDouble("soundSettings.pitch");
@@ -127,19 +139,17 @@ public final class SetSpawn extends JavaPlugin implements Listener {
                 float yaw = (float) spawnConfig.getDouble("spawn.yaw");
                 float pitch = (float) spawnConfig.getDouble("spawn.pitch");
 
-                // Teleportace hráče na spawn pozici
                 if (worldName != null) {
                     Location spawnLocation = new Location(Bukkit.getWorld(worldName), x, y, z, yaw, pitch);
                     player.teleport(spawnLocation);
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.teleportToSpawn")));
-                    
-                    // Přehrání zvuku při teleportaci
+                    sendMessageToPlayer(player, "messages.teleportToSpawn");
+
                     String teleportSound = config.getString("sounds.teleport");
                     float volume = (float) config.getDouble("soundSettings.volume");
                     float pitchSetting = (float) config.getDouble("soundSettings.pitch");
                     player.playSound(player.getLocation(), teleportSound, volume, pitchSetting);
                 } else {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("messages.spawnNotSet")));
+                    sendMessageToPlayer(player, "messages.spawnNotSet");
                 }
                 return true;
             } else {
@@ -149,4 +159,4 @@ public final class SetSpawn extends JavaPlugin implements Listener {
         }
         return false;
     }
-};
+}
