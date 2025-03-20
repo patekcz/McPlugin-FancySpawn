@@ -2,6 +2,8 @@
 
 This plugin allows players to set a spawn point and teleport to it.
 
+[https://modrinth.com/plugin/fancysetspawn](https://modrinth.com/plugin/fancysetspawn)
+
 ## Features
 
 * **Set spawn:** Players can set the spawn to their current position using the `/setspawn` command.
