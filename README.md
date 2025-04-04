@@ -10,6 +10,7 @@ This plugin allows players to set a spawn point and teleport to it.
 * **Teleport to spawn:** Players can teleport to the spawn using the `/spawn` command.
 * **Sound effects:** The plugin plays sound effects during teleportation and spawn setting.
 * **Configuration management:** The plugin uses configuration files to manage messages and sounds.
+* **API:** The plugin provides an API for other plugins to interact with it.
 
 ## Installation
 
@@ -41,3 +42,31 @@ sounds:
 soundSettings:
   volume: 1.0
   pitch: 1.0
+
+```
+
+## API Usage
+
+Plugin poskytuje jednoduché API pro ostatní pluginy:
+
+```java
+// Příklad použití API v jiném pluginu
+public void teleportToSpawn(Player player) {
+    // Získání instance FancySpawn pluginu
+    SetSpawn plugin = (SetSpawn) getServer().getPluginManager().getPlugin("FancySetSpawn");
+    
+    if (plugin != null && plugin.isEnabled()) {
+        // Získání API
+        FancySpawnAPI api = plugin.getAPI();
+        
+        // Teleportace hráče na spawn
+        api.teleportPlayerToSpawn(player);
+    }
+}
+```
+
+### Dostupné API metody
+
+- **getSpawnLocation()** - Vrátí lokaci spawnu
+- **teleportPlayerToSpawn(Player)** - Teleportuje hráče na spawn
+- **isSpawnSet()** - Zjistí, zda je spawn nastaven
