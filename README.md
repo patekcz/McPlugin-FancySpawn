@@ -50,16 +50,16 @@ soundSettings:
 The plugin provides a simple API for other plugins:
 
 ```java
-// Příklad použití API v jiném pluginu
+// Example usage of the API in another plugin
 public void teleportToSpawn(Player player) {
-    // Získání instance FancySpawn pluginu
+    // Get the instance of the FancySpawn plugin
     SetSpawn plugin = (SetSpawn) getServer().getPluginManager().getPlugin("FancySetSpawn");
     
     if (plugin != null && plugin.isEnabled()) {
-        // Získání API
+        // Get the API
         FancySpawnAPI api = plugin.getAPI();
         
-        // Teleportace hráče na spawn
+        // Teleport the player to the spawn location
         api.teleportPlayerToSpawn(player);
     }
 }
