@@ -47,7 +47,7 @@ soundSettings:
 
 ## API Usage
 
-Plugin poskytuje jednoduché API pro ostatní pluginy:
+The plugin provides a simple API for other plugins:
 
 ```java
 // Příklad použití API v jiném pluginu
@@ -65,8 +65,8 @@ public void teleportToSpawn(Player player) {
 }
 ```
 
-### Dostupné API metody
+### Available API Methods
 
-- **getSpawnLocation()** - Vrátí lokaci spawnu
-- **teleportPlayerToSpawn(Player)** - Teleportuje hráče na spawn
-- **isSpawnSet()** - Zjistí, zda je spawn nastaven
+- **getSpawnLocation()** – Returns the spawn location
+- **teleportPlayerToSpawn(Player)** – Teleports the player to the spawn location
+- **isSpawnSet()** – Checks whether the spawn location is set
